@@ -1,0 +1,52 @@
+package donnee;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import donnee.Entreprise;
+
+
+
+public class ConstructionEntreprise {
+	private  ArrayList<Entreprise> listeEntreprise;
+	Entreprise entreprise=new Entreprise("ok",30);
+	private HashMap<Entreprise,Secteur> entrepriseSecteur;
+	
+	public ConstructionEntreprise() {
+		
+	}
+	
+	public void AjoutEntreprise(String nom, int capital) {
+		Iterator<Entreprise> it = listeEntreprise.iterator();
+		while (it.hasNext()) {
+			Entreprise entreprise=new Entreprise(nom,capital);
+			listeEntreprise.add(entreprise);
+		}
+	}
+	
+	
+	
+	public ArrayList<Entreprise> getListeEntreprise() {
+		return listeEntreprise;
+	}
+	public void setListeEntreprise(ArrayList<Entreprise> listeEntreprise) {
+		this.listeEntreprise = listeEntreprise;
+	}
+	public HashMap<Entreprise, Secteur> getEntrepriseSecteur() {
+		return entrepriseSecteur;
+	}
+	public void setEntrepriseSecteur(HashMap<Entreprise, Secteur> entrepriseSecteur) {
+		this.entrepriseSecteur = entrepriseSecteur;
+	}
+
+
+	public static void main(String[] args) {
+	ConstructionEntreprise constr = new ConstructionEntreprise();
+	constr.AjoutEntreprise("Total", 394000000);
+	constr.AjoutEntreprise("Shell", 230000000);
+	constr.AjoutEntreprise("BP",150000000);
+	constr.AjoutEntreprise("esso", 120000000);
+	
+	}
+}
