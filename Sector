@@ -1,0 +1,7 @@
+
+public enum Secteur {
+	gaz,
+	informatique,
+	transport,
+	automobile;
+	}
