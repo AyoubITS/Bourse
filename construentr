@@ -1,0 +1,41 @@
+package donnee;
+import donnee.Secteur;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+
+import donnee.Entreprise;
+
+public class ConstructionEntreprise {
+	private  ArrayList<Entreprise> listeEntreprise;
+	Entreprise entreprise=new Entreprise(30,"ok");
+	private HashMap<Entreprise,Secteur> entrepriseSecteur;
+	
+	public ConstructionEntreprise() {
+		
+	}
+	
+	public void AjoutEntreprise(String nom, int capital) {
+		Iterator<Entreprise> it = listeEntreprise.iterator();
+		while (it.hasNext()) {
+			Entreprise entreprise=new Entreprise(capital,nom);
+			listeEntreprise.add(entreprise);
+		}
+	}
+	
+	AjoutEntreprise()
+	
+	public ArrayList<Entreprise> getListeEntreprise() {
+		return listeEntreprise;
+	}
+	public void setListeEntreprise(ArrayList<Entreprise> listeEntreprise) {
+		this.listeEntreprise = listeEntreprise;
+	}
+	public HashMap<Entreprise, Secteur> getEntrepriseSecteur() {
+		return entrepriseSecteur;
+	}
+	public void setEntrepriseSecteur(HashMap<Entreprise, Secteur> entrepriseSecteur) {
+		this.entrepriseSecteur = entrepriseSecteur;
+	}
+}
