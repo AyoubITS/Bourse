@@ -1,0 +1,12 @@
+package donnee;
+
+import java.util.NoSuchElementException;
+
+public interface InterfaceEntreprise {
+	void ajouter(Entreprise entreprise);
+	Entreprise RechercherNom(String nom1) throws NoSuchElementException;
+	void remove(Entreprise entreprise);
+	int NombreEntreprise();
+	boolean contains(Entreprise entreprise);
+
+}
