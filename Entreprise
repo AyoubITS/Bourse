@@ -1,0 +1,62 @@
+package donnee;
+
+
+public class Entreprise  {
+	
+	private int capital;
+	private String nom;
+	private String secteur;
+	
+	public Entreprise(String nom,int capital,String secteur) {
+		this.capital=capital;
+		this.nom=nom;
+		this.secteur=secteur;
+	}
+	
+	
+
+	
+
+
+	public int getCapital() {
+		return capital;
+	}
+
+	public void setCapital(int capital) {
+		this.capital = capital;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getSecteur() {
+		return secteur;
+	}
+
+	public void setSecteur(String secteur) {
+		this.secteur = secteur;
+	}
+
+
+
+
+
+
+	@Override
+	public String toString() {
+		return "Entreprise [capital=" + capital + ", nom=" + nom + ", secteur=" + secteur + "]";
+	}
+	
+	
+
+
+
+
+
+
+}
