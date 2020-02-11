@@ -1,0 +1,20 @@
+package donnee;
+
+
+public class Evenement {
+	private String evenement ;
+	
+	
+	
+
+	public String getEvenement() {
+		return evenement;
+	}
+
+	public void setEvenement(String evenement) {
+		this.evenement = evenement;
+	}
+	
+	
+
+}
