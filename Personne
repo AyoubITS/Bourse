@@ -1,0 +1,37 @@
+package donnee;
+
+import java.util.ArrayList;
+
+public class Personne {
+	private String nom;
+	private double soldeActuel;
+	
+	public Personne(String nom, double soldeActuel) {
+		this.nom = nom;
+		this.soldeActuel=soldeActuel;
+	}
+	
+	
+	private ArrayList<String> listePersonne =new ArrayList<String>();
+	
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+	
+	public double getSoldeActuel() {
+		return soldeActuel;
+	}
+
+	public void setSoldeActuel(double soldeActuel) {
+		this.soldeActuel=soldeActuel;
+	}
+	
+	
+
+	
+	
+}
