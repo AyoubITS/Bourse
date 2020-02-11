@@ -1,12 +1,12 @@
 package donnee;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 public class Evenement {
 	private String evenement ;
 	
-	
-	
-
 	public String getEvenement() {
 		return evenement;
 	}
@@ -15,6 +15,46 @@ public class Evenement {
 		this.evenement = evenement;
 	}
 	
+	public static String evenementAleatoireGaz() {
+	Random rand = new Random();
+	List <String> liste = Arrays.asList("evenement géopolitique","crise petrolière","pic pollution");
+	String randomElement = liste.get(rand.nextInt(liste.size()));
+	return randomElement;
+	}
 	
-
+	public static String evenementAleatoireTransport() {
+	Random rand = new Random();
+	List <String> liste = Arrays.asList("coronavirus","catastrophe naturelle","guerre");
+	String randomElement = liste.get(rand.nextInt(liste.size()));
+	return randomElement;
+	}
+	
+	public static String evenementAleatoireAutomobile() {	
+	Random rand = new Random();
+	List <String> liste = Arrays.asList("sortie nouveau véhicule","défaut moteur","salon de l'automobile");
+	String randomElement = liste.get(rand.nextInt(liste.size()));
+	return randomElement;
+	}
+	
+	public static String evenementAleatoireInformatique() {
+	Random rand = new Random();
+	List <String> liste = Arrays.asList("attaque informatique mondiale","salon jeu vidéo","salon presentation téléphone");
+	String randomElement = liste.get(rand.nextInt(liste.size()));
+	return randomElement;
+	}
+	
+	public static String evenementAleatoireTousSecteur() {
+	Random rand = new Random();
+	List <String> liste = Arrays.asList("bulle spéculation","pic wall street");
+	String randomElement = liste.get(rand.nextInt(liste.size()));
+	return randomElement;
+	}
+	
+	public static void main(String[]args){
+		System.out.println(evenementAleatoireGaz());
+		System.out.println(evenementAleatoireTransport());
+		System.out.println(evenementAleatoireAutomobile());
+		System.out.println(evenementAleatoireInformatique());
+		System.out.println(evenementAleatoireTousSecteur());
+	}
 }
