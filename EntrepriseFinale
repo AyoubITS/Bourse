@@ -1,0 +1,77 @@
+package donnee;
+
+
+public class Entreprise  {
+	
+	private double capital;
+	private String nom;
+	private String secteur;
+	private int valeuraction;
+	private int pourcentagedetenuparen=100;
+	
+	public Entreprise(String nom,int capital,String secteur,int valeuraction,int p) {
+		this.capital=capital;
+		this.nom=nom;
+		this.secteur=secteur;
+		this.valeuraction=valeuraction;
+		this.pourcentagedetenuparen=p;
+	}
+	
+	public double getCapital() {
+		return capital;
+	}
+
+	public void setCapital(double d) {
+		this.capital = d;
+	}
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public String getSecteur() {
+		return secteur;
+	}
+
+	public void setSecteur(String secteur) {
+		this.secteur = secteur;
+	}
+	
+
+	public int getValeuraction() {
+		return valeuraction;
+	}
+
+	public void setValeuraction(int valeuraction) {
+		this.valeuraction = valeuraction;
+	}
+
+	public int getPourcentagedetenuparen() {
+		return pourcentagedetenuparen;
+	}
+
+	public void setPourcentagedetenuparen(int pourcentagedetenuparen) {
+		this.pourcentagedetenuparen = pourcentagedetenuparen;
+	}
+
+	@Override
+	public String toString() {
+		return "Entreprise [capital=" + capital + ", nom=" + nom + ", secteur=" + secteur + ", valeuraction="
+				+ valeuraction + ", pourcentagedetenuparen=" + pourcentagedetenuparen + "]";
+	}
+
+	
+	
+	
+	
+
+
+
+
+
+
+}
