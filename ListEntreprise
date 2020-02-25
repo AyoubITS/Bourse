@@ -1,0 +1,178 @@
+package donnee;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class ListEntreprise implements InterfaceEntreprise {
+	private static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
+
+	protected ArrayList<Entreprise> getEntreprise(){
+		return entreprises;
+		
+	}
+	
+	public void ajouter(Entreprise entreprise) {
+		if(entreprises.contains(entreprise)) {
+			System.out.println("Cette entreprise est déjà ajouter");
+		}
+		else {
+			entreprises.add(entreprise);
+		}
+	}
+	
+	public Entreprise RechercherNom(String nom1) throws NoSuchElementException{
+		Entreprise resultat=null;
+		for (Entreprise entreprise : entreprises) {
+			if (entreprise.getNom().equals(nom1)) {
+				resultat=entreprise;
+			}
+		}
+		if(resultat == null) {
+			throw new NoSuchElementException("Entreprise" + nom1 + "n'existe pas.");
+		}
+		else {
+			return resultat;
+		}
+		
+		}
+	public void remove(Entreprise entreprise) {
+		entreprises.remove(entreprise);
+	}
+
+	public int NombreEntreprise() {
+		return entreprises.size();
+	}
+
+	
+	public boolean contains(Entreprise entreprise) {
+		return entreprises.contains(entreprise);
+	}
+	
+	public String toString() {
+		String result = "";
+		for (Entreprise entreprise : entreprises) {
+			result += entreprise.toString() + "\n";
+		}
+
+		return result;
+	}
+	public static void testEntreprise() {
+		
+		InterfaceEntreprise entreprise = new ListEntreprise();
+		testOperations(entreprise);
+	}
+
+
+	public static void testOperations(InterfaceEntreprise entreprise) {
+		Entreprise e2 = new Entreprise("Total", 394000000,"gaz",45,100);
+		Entreprise e3 = new Entreprise("Shell", 230000000,"gaz",11,100);
+		Entreprise e4 = new Entreprise("BP",150000000,"gaz",555,100);
+		Entreprise e5 = new Entreprise("Esso", 120000000,"gaz",55,100);
+		Entreprise e6 = new Entreprise("Edf", 50000000,"gaz",12,100);
+		Entreprise e7 = new Entreprise("Apple", 900000000,"informatique",295,100);
+		Entreprise e8 = new Entreprise("Logitech", 85000000,"informatique",40,100);
+		Entreprise e9 = new Entreprise("Hp inc.", 46000000,"informatique",22,100);
+		Entreprise e10 = new Entreprise("Dell", 168000000,"informatique",52,100);
+		Entreprise e11 = new Entreprise("Wester Digital Corporation", 179000000,"informatique",62,100);
+		Entreprise e12 = new Entreprise("Air France KLM", 139000000,"transport",9,100);
+		Entreprise e1 = new Entreprise("American Airlines", 165000000,"transport",30,100);
+		Entreprise e13 = new Entreprise	("Delta Airlines", 31000000,"transport",57,100);
+		Entreprise e14 = new Entreprise("Lufthansa", 28000000,"transport",14,100);
+		Entreprise e15= new Entreprise("Air Canada", 80000000,"transport",31,100);
+		Entreprise e16 = new Entreprise("Renault", 90000000,"automobile",34,100);
+		Entreprise e17 = new Entreprise("Michelin", 241000000,"automobile",103,100);
+		Entreprise e18 = new Entreprise("Ford Motor", 210000000,"automobile",11,100);
+		Entreprise e19 = new Entreprise("Valeo", 650000000,"automobile",26,100);
+		Entreprise e20 = new Entreprise("Peugeot PSA", 35000000,"automobile",19,100);
+		try {
+			entreprise.ajouter(e1);
+			entreprise.ajouter(e2);
+			entreprise.ajouter(e3);
+			entreprise.ajouter(e4);
+			entreprise.ajouter(e5);
+			entreprise.ajouter(e6);
+			entreprise.ajouter(e7);
+			entreprise.ajouter(e8);
+			entreprise.ajouter(e9);
+			entreprise.ajouter(e10);
+			entreprise.ajouter(e11);
+			entreprise.ajouter(e12);
+			entreprise.ajouter(e13);
+			entreprise.ajouter(e14);
+			entreprise.ajouter(e15);
+			entreprise.ajouter(e16);
+			entreprise.ajouter(e17);
+			entreprise.ajouter(e18);
+			entreprise.ajouter(e19);
+			entreprise.ajouter(e20);
+			
+			System.out.println(e1.toString());
+			System.out.println(e2.toString());
+			System.out.println(e3.toString());
+			System.out.println(e4.toString());
+			System.out.println(e5.toString());
+			System.out.println(e6.toString());
+			System.out.println(e7.toString());
+			System.out.println(e8.toString());
+			System.out.println(e9.toString());
+			System.out.println(e10.toString());
+			System.out.println(e11.toString());
+			System.out.println(e12.toString());
+			System.out.println(e13.toString());
+			System.out.println(e14.toString());
+			System.out.println(e15.toString());
+			System.out.println(e16.toString());
+			System.out.println(e17.toString());
+			System.out.println(e18.toString());
+			System.out.println(e19.toString());
+			System.out.println(e20.toString());
+			System.out.println("\n Il y a " + entreprise.NombreEntreprise()+ " entreprises \n");
+			
+			
+		}
+		catch (NoSuchElementException e) {
+			System.err.println(e.getMessage());
+		}
+
+}
+	//modifier capital par secteur selon evenement
+	
+	public static void modifier_capital (double pourcentage, String secteur) {
+		System.out.println("\n Semaine 1: \n");
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if(ent.getSecteur().contentEquals(secteur)) {
+				ent.setCapital(ent.getCapital()*pourcentage);
+				System.out.println("Nouveau capital de " + ent.getNom() + " : " +ent.getCapital() );
+			}
+		}
+	}
+	
+	public static void modifier_pourcentage_entreprise (int pourcentage, String nom) {
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if(ent.getNom().contentEquals(nom)) {
+			
+				ent.setPourcentagedetenuparen(ent.getPourcentagedetenuparen()-pourcentage);
+				
+			}
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public static void main(String[]args){
+		testEntreprise();
+	
+	}
+
+	
+}
