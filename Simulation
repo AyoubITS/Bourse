@@ -1,0 +1,59 @@
+package donnee;
+import donnee.ListEntreprise;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+
+
+
+public class Simulation {
+		
+		
+	
+	
+	public static int changement_capital() {
+		Random rand = new Random();
+		int randomElement = rand.nextInt(100 - 1 + 1) + 1;
+		return randomElement;
+		}
+	
+	public static String entreprise_aleatoire() {
+		Random rand = new Random();
+		List <String> liste = Arrays.asList("Total","Shell","BP","Esso","Edf","Apple","Logitech","Hp inc.","Dell","Wester Digital Corporation","Air France KLM","American Airlines","Delta Airlines","Lufthansa","Air Canada","Renault","Michelin","Ford Motor","Valeo","Peugeot PSA");
+		String randomElement = liste.get(rand.nextInt(liste.size()));
+		return randomElement;
+		}
+	
+	public static void modification_action_aleatoire() {
+		Random rand = new Random();
+		int randomElement = rand.nextInt(1);
+		if (randomElement == 0) {
+			System.out.println("L'entreprise : " +entreprise_aleatoire()+ " detient maintenant " + changement_capital()+ " % de ses actions après l'achat de l'utilisateur ou d'une personne.");
+			ListEntreprise.modifier_pourcentage_entreprise (changement_capital(),entreprise_aleatoire());
+		}
+	
+		}
+	
+	public static void achat_joueur(Utilisateur u) {
+		Random rand=new Random();
+		int randomElement=rand.nextInt(1);
+		if (randomElement == 0) {
+			if(u.getSoldeActuel()==0 ) {
+				System.out.println("Malheuresement vous n'avez plus d'argent");
+			}
+			else{
+				
+				
+			}
+			
+		}
+	}
+
+	
+	public static void main(String[]args){
+		modification_action_aleatoire();
+		ListEntreprise.testEntreprise();
+		
+		
+	}
