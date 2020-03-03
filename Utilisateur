@@ -2,19 +2,19 @@ package donnee;
 
 
 public class Utilisateur {
-	private double soldeActuel=500;
+	private static double soldeActuel=500;
 	private int pourcentagedetenuparlutilisateur;
 	
 	public Utilisateur(double soldeActuel) {
-		this.soldeActuel=soldeActuel;
+		Utilisateur.soldeActuel=soldeActuel;
 	}
 
-	public double getSoldeActuel() {
+	public static double getSoldeActuel() {
 		return soldeActuel;
 	}
 
-	public void setSoldeActuel(double soldeActuel) {
-		this.soldeActuel = soldeActuel;
+	public static void setSoldeActuel(double soldeActuel) {
+		Utilisateur.soldeActuel = soldeActuel;
 	}
 
 	public int getPourcentagedetenuparlutilisateur() {
