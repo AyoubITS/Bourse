@@ -3,6 +3,7 @@ package donnee;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Scanner;
 
 public class ListEntreprise implements InterfaceEntreprise {
 	private static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
@@ -164,6 +165,44 @@ public class ListEntreprise implements InterfaceEntreprise {
 	}
 	
 	
+	public static void Achat( int nb_action) {
+		@SuppressWarnings("resource")
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Voulez vous faire une action cette semaine? (o/n)");
+		String rep = sc.nextLine();
+		if (rep.contentEquals("o")) {
+			
+			System.out.println("Quelle entreprise choisissez vous?");
+			String entr = sc.nextLine();
+			Iterator<Entreprise> it = entreprises.iterator();
+			while(it.hasNext()) {
+
+				Entreprise ent= it.next();
+				if(ent.getNom().contentEquals(entr)) {
+					
+					if(nb_action*ent.getValeuraction() > Utilisateur.getSoldeActuel()) {
+						System.out.println("Solde actuel insuffisant, prix de l'action total :" + nb_action*ent.getValeuraction() + " Solde actuel: " + Utilisateur.getSoldeActuel() );
+					}
+					else {
+						Utilisateur.setSoldeActuel(Utilisateur.getSoldeActuel() - nb_action*ent.getValeuraction());
+						ent.setCapital(ent.getCapital()-nb_action*ent.getValeuraction());
+						System.out.println("Nouvel Achat effectué: " + nb_action + " action(s) chez " + ent.getNom() + " a " + nb_action*ent.getValeuraction()+ "euros.   "  +"Nouveau Solde:"+ Utilisateur.getSoldeActuel());
+					}
+				}
+			}
+			System.out.println("Voulez vous faire d'autres actions cette semaine? o/n");
+			String rep2 = sc.nextLine();
+			if (rep2.contentEquals("o")) {
+				Achat(5);
+			}
+		}
+		else if(rep.contentEquals("n")) {
+			System.out.println("Aucune action effectuée cette semaine.");
+		}
+		else {
+			System.out.println("Erreur, réponse attendue : o/n");
+		}
+	}
 	
 	
 	
