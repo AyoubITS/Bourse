@@ -8,10 +8,7 @@ import java.util.Scanner;
 public class ListEntreprise implements InterfaceEntreprise {
 	private static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
 
-	protected ArrayList<Entreprise> getEntreprise(){
-		return entreprises;
-		
-	}
+	private static ArrayList<AchatAction> AchatActionListe = new ArrayList<AchatAction>();
 	
 	public void ajouter(Entreprise entreprise) {
 		if(entreprises.contains(entreprise)) {
@@ -164,6 +161,25 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}
 	}
 	
+	public static void ajouterAchat(AchatAction AchatAction) {
+			Iterator<AchatAction> it = AchatActionListe.iterator();
+			while (it.hasNext()) {
+				AchatAction aa = it.next();
+				if(aa.getNomEntreprise().contentEquals(AchatAction.getNomEntreprise())) {
+					aa.setNbAction(aa.getNbAction() + AchatAction.getNbAction()); 
+					return ;
+				}
+			}
+			AchatActionListe.add(AchatAction);
+	}
+	
+	public static void testAjouterAchat() {
+		Iterator<AchatAction> it = AchatActionListe.iterator();
+		while (it.hasNext()) {
+			AchatAction aa = it.next();
+			System.out.println(aa.toString());
+			}
+		}
 	
 	public static void Achat( int nb_action) {
 		@SuppressWarnings("resource")
@@ -185,6 +201,8 @@ public class ListEntreprise implements InterfaceEntreprise {
 					}
 					else {
 						Utilisateur.setSoldeActuel(Utilisateur.getSoldeActuel() - nb_action*ent.getValeuraction());
+						AchatAction AchatAction = new AchatAction(entr,nb_action);
+						ajouterAchat(AchatAction);
 						ent.setCapital(ent.getCapital()-nb_action*ent.getValeuraction());
 						System.out.println("Nouvel Achat effectué: " + nb_action + " action(s) chez " + ent.getNom() + " a " + nb_action*ent.getValeuraction()+ "euros.   "  +"Nouveau Solde:"+ Utilisateur.getSoldeActuel());
 					}
@@ -203,11 +221,6 @@ public class ListEntreprise implements InterfaceEntreprise {
 			System.out.println("Erreur, réponse attendue : o/n");
 		}
 	}
-	
-	
-	
-	
-	
 	
 	public static void main(String[]args){
 		testEntreprise();
