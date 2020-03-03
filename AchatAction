@@ -1,0 +1,33 @@
+package donnee;
+
+public class AchatAction {
+	private String nomEntreprise;
+	private int nbAction;
+	
+	public AchatAction(String nomEntreprise, int nbAction) {
+		this.nomEntreprise= nomEntreprise;
+		this.nbAction= nbAction;
+	}
+
+	public String getNomEntreprise() {
+		return nomEntreprise;
+	}
+
+	public void setNomEntreprise(String nomEntreprise) {
+		this.nomEntreprise = nomEntreprise;
+	}
+
+
+	public int getNbAction() {
+		return nbAction;
+	}
+
+	public void setNbAction(int nbAction) {
+		this.nbAction = nbAction ;
+	}
+
+	@Override
+	public String toString() {
+		return getNbAction() + "Action(s) sur l'entreprise :" + getNomEntreprise();
+	}
+}
