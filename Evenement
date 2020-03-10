@@ -63,37 +63,38 @@ public class Evenement {
 		int randomElement = rand.nextInt(6);
 		if (randomElement == 0) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireGaz()+ ", secteur touché : GAZ - 30%");
-			ListEntreprise.modifier_capital(0.7,"gaz");
+			ListEntreprise.modifier_capital_secteur(0.7,"gaz");
 	
 		}
 		else if (randomElement == 1) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireTransport()+ ", secteur touché : TRANSPORT - 30%");
-			ListEntreprise.modifier_capital(0.7,"transport");
+			ListEntreprise.modifier_capital_secteur(0.7,"transport");
 			
 		}
 		else if(randomElement == 2) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireAutomobile()+ ", secteur touché : AUTOMOBILE +30%");
-			ListEntreprise.modifier_capital(1.3,"gaz");
+			ListEntreprise.modifier_capital_secteur(1.3,"gaz");
 		}
 		else if(randomElement == 3) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireAutomobileNegatif()+ ", secteur touché : AUTOMOBILE - 30%");
-			ListEntreprise.modifier_capital(0.7,"automobile");
+			ListEntreprise.modifier_capital_secteur(0.7,"automobile");
 		}
 		else if(randomElement ==4) {
 			System.out.println("Evenement de cette semaine : "+evenementAleatoireInformatique()+ ", secteur touché : INFORMATIQUE +30%");
-			ListEntreprise.modifier_capital(1.3,"informatique");
+			ListEntreprise.modifier_capital_secteur(1.3,"informatique");
 		}
 		else if(randomElement ==5) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireInformatiqueNegatif()+ ", secteur touché : INFORMATIQUE - 30%");
-			ListEntreprise.modifier_capital(0.7,"informatique");
+			ListEntreprise.modifier_capital_secteur(0.7,"informatique");
 		}
 	}
 	
 	public static void semaine() {
 		for (int i =1; i < 6; i++) {
+			ListEntreprise singleton = ListEntreprise.getInstance();
 			System.out.println("Semaine" + i + "\n");
 			EvenementSecteurAleatoire();
-			ListEntreprise.Achat(5);
+			singleton.Achat(5);
 			ListEntreprise.Vente();
 			try {
 				Thread.sleep(1000);
@@ -103,6 +104,7 @@ public class Evenement {
 		}
 	}
 	public static void main(String[]args){
+		ListEntreprise singleton = ListEntreprise.getInstance();
 		ListEntreprise.testEntreprise();
 		semaine();
 		
