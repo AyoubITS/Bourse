@@ -196,7 +196,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 			AchatActionListe.add(AchatAction);
 	}
 	
-	public void Vente() {
+	public static void Vente() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Voulez vous faire une vente cette semaine? (o/n)");
 		String rep = sc.nextLine();
