@@ -6,7 +6,18 @@ import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ListEntreprise implements InterfaceEntreprise {
-	private static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
+	
+	 private static final ListEntreprise instance = new ListEntreprise();
+	 
+	 private ListEntreprise () {
+		 System.out.println("Construction du singleton au premier appel");
+	 }
+	 
+	 static final ListEntreprise getInstance() {
+		 return instance;
+	 }
+	 
+	static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
 
 	private static ArrayList<AchatAction> AchatActionListe = new ArrayList<AchatAction>();
 	
@@ -57,8 +68,8 @@ public class ListEntreprise implements InterfaceEntreprise {
 	}
 	public static void testEntreprise() {
 		
-		InterfaceEntreprise entreprise = new ListEntreprise();
-		testOperations(entreprise);
+		ListEntreprise singleton = ListEntreprise.getInstance();
+		testOperations(singleton);
 	}
 
 
@@ -136,7 +147,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 }
 	//modifier capital par secteur selon evenement
 	
-	public static void modifier_capital (double pourcentage, String secteur) {
+	public static void modifier_capital_secteur (double pourcentage, String secteur) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
@@ -145,6 +156,18 @@ public class ListEntreprise implements InterfaceEntreprise {
 				System.out.println("Nouveau capital de " + ent.getNom() + " : " +ent.getCapital() );
 			}
 			
+		}
+		System.out.println("\n");
+	}
+	
+	public static void modifier_capital_entreprise (double pourcentage, String entreprise) {
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if (ent.getNom().contentEquals(entreprise)) {
+				ent.setCapital(ent.getCapital()*pourcentage);
+				System.out.println("Nouveau capital pour " + entreprise +" de " + ent.getCapital() + " euros (*" + pourcentage*100 + "%" ); 
+			}
 		}
 		System.out.println("\n");
 	}
@@ -173,7 +196,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 			AchatActionListe.add(AchatAction);
 	}
 	
-	public static void Vente() {
+	public void Vente() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Voulez vous faire une vente cette semaine? (o/n)");
 		String rep = sc.nextLine();
@@ -220,7 +243,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 		
 	}
 	
-	public static void Achat( int nb_action) {
+	public void Achat( int nb_action) {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Voulez vous faire une action cette semaine? (o/n)");
