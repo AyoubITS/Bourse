@@ -1,6 +1,6 @@
 package donnee;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -173,13 +173,52 @@ public class ListEntreprise implements InterfaceEntreprise {
 			AchatActionListe.add(AchatAction);
 	}
 	
-	public static void testAjouterAchat() {
-		Iterator<AchatAction> it = AchatActionListe.iterator();
-		while (it.hasNext()) {
-			AchatAction aa = it.next();
-			System.out.println(aa.toString());
+	public static void Vente() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Voulez vous faire une vente cette semaine? (o/n)");
+		String rep = sc.nextLine();
+		if (rep.contentEquals("o")) {
+			
+			System.out.println("\n Voici les entreprises ou vous avez fait des achats d'action");
+			Iterator<AchatAction> it = AchatActionListe.iterator();
+			while (it.hasNext()) {
+				
+				AchatAction aa = it.next();
+				System.out.println(aa.toString());
 			}
-		}
+			System.out.println("Quelle entreprise choisissez vous?");
+			String entr = sc.nextLine();
+			Iterator<AchatAction> iter = AchatActionListe.iterator();
+			while(iter.hasNext()) {
+				
+				AchatAction ach = iter.next();
+				if(ach.getNomEntreprise().contentEquals(entr))  {
+					
+					Iterator<Entreprise> ite = entreprises.iterator();
+					while(ite.hasNext()) {
+						
+						Entreprise ent = ite.next();
+						System.out.println("Combien d'actions voulez vous vendre?");
+						String act = sc.nextLine();
+						int i = Integer.parseInt(act.trim());
+						if (i <= ach.getNbAction()) {
+							
+							ach.setNbAction(ach.getNbAction() - i);
+							Utilisateur.setSoldeActuel(Utilisateur.getSoldeActuel() + i * ent.getValeuraction());
+							System.out.println("Vous avez gagner "+ i + " * "+ ent.getValeuraction() + " = " + i*ent.getValeuraction() + " Nouveau Solde : "+ Utilisateur.getSoldeActuel()); 
+							break;
+						}
+						else {
+							System.out.println("Erreur vous n'avez que "+ ach.getNbAction()+" actions");
+							break;
+						}
+					}
+				}
+			}
+			
+		}	
+		
+	}
 	
 	public static void Achat( int nb_action) {
 		@SuppressWarnings("resource")
