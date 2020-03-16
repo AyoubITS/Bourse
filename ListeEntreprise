@@ -166,10 +166,9 @@ public class ListEntreprise implements InterfaceEntreprise {
 			Entreprise ent= it.next();
 			if (ent.getNom().contentEquals(entreprise)) {
 				ent.setCapital(ent.getCapital()*pourcentage);
-				System.out.println("Nouveau capital pour " + entreprise +" de " + ent.getCapital() + " euros (*" + pourcentage*100 + "%" ); 
+				System.out.println("Nouveau capital pour " + entreprise +" de " + ent.getCapital() + " euros (*" + pourcentage*100 + "%)" ); 
 			}
 		}
-		System.out.println("\n");
 	}
 	
 	public static void modifier_pourcentage_entreprise (int pourcentage, String nom) {
@@ -196,7 +195,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 			AchatActionListe.add(AchatAction);
 	}
 	
-	public static void Vente() {
+	public void Vente() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Voulez vous faire une vente cette semaine? (o/n)");
 		String rep = sc.nextLine();
