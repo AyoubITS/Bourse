@@ -94,8 +94,9 @@ public class Evenement {
 			ListEntreprise singleton = ListEntreprise.getInstance();
 			System.out.println("Semaine" + i + "\n");
 			EvenementSecteurAleatoire();
+			Simulation.simul_entreprise();
 			singleton.Achat(5);
-			ListEntreprise.Vente();
+			singleton.Vente();
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
