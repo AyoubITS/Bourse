@@ -13,7 +13,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 		 System.out.println("Construction du singleton au premier appel");
 	 }
 	 
-	 static final ListEntreprise getInstance() {
+	 public static final ListEntreprise getInstance() {
 		 return instance;
 	 }
 	 
@@ -147,7 +147,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 }
 	//modifier capital par secteur selon evenement
 	
-	public static void modifier_capital_secteur (double pourcentage, String secteur) {
+	public void modifier_capital_secteur (double pourcentage, String secteur) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
@@ -160,7 +160,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 		System.out.println("\n");
 	}
 	
-	public static void modifier_capital_entreprise (double pourcentage, String entreprise) {
+	public void modifier_capital_entreprise (double pourcentage, String entreprise) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
@@ -170,8 +170,18 @@ public class ListEntreprise implements InterfaceEntreprise {
 			}
 		}
 	}
+	public void modifier_prix_action_entreprise (double pourcentage, String entreprise) {
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if (ent.getNom().contentEquals(entreprise)) {
+				ent.setValeuraction(ent.getValeuraction()*pourcentage);
+				System.out.println("Nouveau prix d'action pour " + entreprise +" de " + ent.getValeuraction() + " euros (*" + pourcentage*100 + "%)" ); 
+			}
+		}
+	}
 	
-	public static void modifier_pourcentage_entreprise (int pourcentage, String nom) {
+	public void modifier_pourcentage_entreprise (int pourcentage, String nom) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
@@ -287,6 +297,17 @@ public class ListEntreprise implements InterfaceEntreprise {
 		testEntreprise();
 	
 	}
-
+	public double get_valeuraction_entreprise(String valeur1) {
+		Iterator<Entreprise> it = entreprises.iterator();
+		double v1 = 0;
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if (ent.getNom().contentEquals(valeur1)) {
+			v1= ent.getValeuraction();
+				 
+			}
+		}
+		return v1;
+	}
 	
 }
