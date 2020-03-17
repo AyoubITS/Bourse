@@ -10,14 +10,14 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 
-import donnee.Entreprise;
+
 import donnee.ListEntreprise;
 
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.Iterator;
+
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -30,7 +30,7 @@ public class GUI2 extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtAchat;
 	private JTextField txtVente;
-
+	static ListEntreprise singleton = ListEntreprise.getInstance();
 	private DefaultListModel<String> listModel = new DefaultListModel<>();
 	private DefaultListModel<String> listModel1 = new DefaultListModel<>();
 	private DefaultListModel<String> listModel2 = new DefaultListModel<>();
@@ -43,7 +43,11 @@ public class GUI2 extends JFrame {
 	/**
 	 * Launch the application.
 	 */
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
+		
+		singleton.testEntreprise();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -175,19 +179,21 @@ public class GUI2 extends JFrame {
 		contentPane.add(b0);
 		b0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ListEntreprise singleton = ListEntreprise.getInstance();
-				String valeur1;
-				String valeur2;
-				valeur1=list_1.getSelectedValue().toString();
-				valeur2=list_2.getSelectedValue().toString();
-				double valeur3 = Double.parseDouble(valeur2);
-				double valeur4= singleton.get_valeuraction_entreprise(valeur1);
-				double finale1= valeur3*valeur4;
 				
-				if(finale1 <= getPortefeuille()) {
-					setPortefeuille(getPortefeuille()-finale1);
-					listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+				String entreprise;
+				String nb_action;
+				entreprise = list_1.getSelectedValue().toString();
+				nb_action=list_2.getSelectedValue().toString();
+				double valeur3 = Double.parseDouble(nb_action);
+				double val_action= singleton.get_valeuraction_entreprise(entreprise);
+				double prix_finale= valeur3*val_action;
+				
+				if(prix_finale <= getPortefeuille()) {
+					setPortefeuille(getPortefeuille()- prix_finale);
+					String result=String.valueOf(val_action);
 					
+					listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+					listModel3.addElement(result);
 				}
 				else {
 					String expression1="Vous n'avez pas assez d'argent malheuresement";
