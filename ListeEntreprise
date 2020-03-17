@@ -9,7 +9,7 @@ public class ListEntreprise implements InterfaceEntreprise {
 	
 	 private static final ListEntreprise instance = new ListEntreprise();
 	 
-	 private ListEntreprise () {
+	 public ListEntreprise () {
 		 System.out.println("Construction du singleton au premier appel");
 	 }
 	 
@@ -70,6 +70,10 @@ public class ListEntreprise implements InterfaceEntreprise {
 		
 		ListEntreprise singleton = ListEntreprise.getInstance();
 		testOperations(singleton);
+		get_valeuraction_entreprise("Total");
+		
+		
+		
 	}
 
 
@@ -295,19 +299,28 @@ public class ListEntreprise implements InterfaceEntreprise {
 	
 	public static void main(String[]args){
 		testEntreprise();
+		
 	
 	}
-	public double get_valeuraction_entreprise(String valeur1) {
+	public static  double get_valeuraction_entreprise(String entreprise) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		double v1 = 0;
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
-			if (ent.getNom().contentEquals(valeur1)) {
+			if (ent.getNom().contentEquals(entreprise)) {
 			v1= ent.getValeuraction();
+			
 				 
 			}
 		}
 		return v1;
 	}
-	
+	public String get_name_entreprise() {
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent=it.next();
+			return ent.getNom();
+		}
+		return null;
+	}
 }
