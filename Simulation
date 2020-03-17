@@ -11,13 +11,15 @@ import java.util.Iterator;
 public class Simulation {
 		
 	public static void simul_entreprise() {
+		ListEntreprise singleton = ListEntreprise.getInstance();
 		Iterator<Entreprise> it = ListEntreprise.entreprises.iterator();
 		System.out.println(ListEntreprise.entreprises.size());
 		while(it.hasNext()) {
 			Entreprise ent = it.next();
 			double pourcentage = generer_pourcentage(0.80,1.2);
-			ListEntreprise.modifier_capital_entreprise(pourcentage, ent.getNom());
-		
+			singleton.modifier_capital_entreprise(pourcentage, ent.getNom());
+			singleton.modifier_prix_action_entreprise(pourcentage, ent.getNom());
+	
 		}
 	}
 	
@@ -27,8 +29,5 @@ public class Simulation {
 		return nb;
 		
 	}
-	public static void main(String[]args){
-		ListEntreprise singleton = ListEntreprise.getInstance();
-	
-	}
+
 }
