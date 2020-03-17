@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class Evenement {
 	private String evenement ;
-	
+	ListEntreprise singleton = ListEntreprise.getInstance();
 	public String getEvenement() {
 		return evenement;
 	}
@@ -59,33 +59,34 @@ public class Evenement {
 	}
 	
 	public static void EvenementSecteurAleatoire() {
+		ListEntreprise singleton = ListEntreprise.getInstance();
 		Random rand = new Random();
 		int randomElement = rand.nextInt(6);
 		if (randomElement == 0) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireGaz()+ ", secteur touché : GAZ - 30%");
-			ListEntreprise.modifier_capital_secteur(0.7,"gaz");
+			singleton.modifier_capital_secteur(0.7,"gaz");
 	
 		}
 		else if (randomElement == 1) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireTransport()+ ", secteur touché : TRANSPORT - 30%");
-			ListEntreprise.modifier_capital_secteur(0.7,"transport");
+			singleton.modifier_capital_secteur(0.7,"transport");
 			
 		}
 		else if(randomElement == 2) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireAutomobile()+ ", secteur touché : AUTOMOBILE +30%");
-			ListEntreprise.modifier_capital_secteur(1.3,"gaz");
+			singleton.modifier_capital_secteur(1.3,"gaz");
 		}
 		else if(randomElement == 3) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireAutomobileNegatif()+ ", secteur touché : AUTOMOBILE - 30%");
-			ListEntreprise.modifier_capital_secteur(0.7,"automobile");
+			singleton.modifier_capital_secteur(0.7,"automobile");
 		}
 		else if(randomElement ==4) {
 			System.out.println("Evenement de cette semaine : "+evenementAleatoireInformatique()+ ", secteur touché : INFORMATIQUE +30%");
-			ListEntreprise.modifier_capital_secteur(1.3,"informatique");
+			singleton.modifier_capital_secteur(1.3,"informatique");
 		}
 		else if(randomElement ==5) {
 			System.out.println("Evenement de cette semaine : "+ evenementAleatoireInformatiqueNegatif()+ ", secteur touché : INFORMATIQUE - 30%");
-			ListEntreprise.modifier_capital_secteur(0.7,"informatique");
+			singleton.modifier_capital_secteur(0.7,"informatique");
 		}
 	}
 	
@@ -105,7 +106,6 @@ public class Evenement {
 		}
 	}
 	public static void main(String[]args){
-		ListEntreprise singleton = ListEntreprise.getInstance();
 		ListEntreprise.testEntreprise();
 		semaine();
 		
