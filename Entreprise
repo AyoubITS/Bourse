@@ -6,7 +6,7 @@ public class Entreprise  {
 	private double capital;
 	private String nom;
 	private String secteur;
-	private int valeuraction;
+	private double valeuraction;
 	private int pourcentagedetenuparen=100;
 	
 	public Entreprise(String nom,int capital,String secteur,int valeuraction,int p) {
@@ -42,12 +42,12 @@ public class Entreprise  {
 	}
 	
 
-	public int getValeuraction() {
+	public double getValeuraction() {
 		return valeuraction;
 	}
 
-	public void setValeuraction(int valeuraction) {
-		this.valeuraction = valeuraction;
+	public void setValeuraction(double d) {
+		this.valeuraction = d;
 	}
 
 	public int getPourcentagedetenuparen() {
