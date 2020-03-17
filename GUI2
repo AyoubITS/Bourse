@@ -9,10 +9,15 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+
+import donnee.Entreprise;
+import donnee.ListEntreprise;
+
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -32,7 +37,7 @@ public class GUI2 extends JFrame {
 	private DefaultListModel<String> listModel3 = new DefaultListModel<>();
 	private JButton b1 = new JButton("Choisir ");
 	private JButton b0 = new JButton("Valider Achat");
-	private double portefeuille=2000;
+	double portefeuille=2000;
 	
 
 	/**
@@ -170,12 +175,28 @@ public class GUI2 extends JFrame {
 		contentPane.add(b0);
 		b0.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				ListEntreprise singleton = ListEntreprise.getInstance();
+				String valeur1;
+				String valeur2;
+				valeur1=list_1.getSelectedValue().toString();
+				valeur2=list_2.getSelectedValue().toString();
+				double valeur3 = Double.parseDouble(valeur2);
+				double valeur4= singleton.get_valeuraction_entreprise(valeur1);
+				double finale1= valeur3*valeur4;
 				
-				
-				listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ "action(s)");
+				if(finale1 <= getPortefeuille()) {
+					setPortefeuille(getPortefeuille()-finale1);
+					listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+					
+				}
+				else {
+					String expression1="Vous n'avez pas assez d'argent malheuresement";
+					listModel3.addElement(expression1);
+				}
 				
 			}
 		});
+		
 		
 		JButton b4 = new JButton("Valider vente");
 		b4.setBounds(1006, 580, 278, 31);
@@ -226,4 +247,7 @@ public class GUI2 extends JFrame {
 	public void setPortefeuille(double portefeuille) {
 		this.portefeuille = portefeuille;
 	}
+
+
+
 }
