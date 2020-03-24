@@ -12,6 +12,7 @@ import java.awt.Font;
 import javax.swing.border.TitledBorder;
 
 import donnee.Evenement;
+import donnee.ListEntreprise;
 
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
@@ -47,6 +48,8 @@ public class GUI extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		ListEntreprise.testEntreprise();
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -129,7 +132,7 @@ public class GUI extends JFrame {
 		JButton b1 = new JButton("Play");
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listModel2.addElement("Evenement de cette semaine : " +Evenement.evenementAleatoireAutomobile() +"secteur touché : GAZ - 30%");
+				
 			}
 		});
 		b1.setFont(new Font("Tahoma", Font.PLAIN, 13));
