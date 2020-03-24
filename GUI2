@@ -35,9 +35,12 @@ public class GUI2 extends JFrame {
 	private DefaultListModel<String> listModel1 = new DefaultListModel<>();
 	private DefaultListModel<String> listModel2 = new DefaultListModel<>();
 	private DefaultListModel<String> listModel3 = new DefaultListModel<>();
+	private DefaultListModel<String> listModel_vente_entreprise = new DefaultListModel<>();
+	private DefaultListModel<String> listModel_vente_nbaction = new DefaultListModel<>();
 	private JButton b1 = new JButton("Choisir ");
 	private JButton b0 = new JButton("Valider Achat");
 	double portefeuille=2000;
+	private JTextField txtActionPossd;
 	
 
 	/**
@@ -93,7 +96,7 @@ public class GUI2 extends JFrame {
 		listModel.addElement("Shell");
 		listModel.addElement("BP");
 		listModel.addElement("Esso");
-		listModel.addElement("EDF");
+		listModel.addElement("Edf");
 		listModel.addElement("Apple");
 		listModel.addElement("Logitech");
 		listModel.addElement("Hp inc.");
@@ -163,7 +166,7 @@ public class GUI2 extends JFrame {
 		contentPane.add(txtVente);
 		txtVente.setColumns(10);
 		
-		JList list_3 = new JList(listModel);
+		JList list_3 = new JList(listModel_vente_entreprise);
 		JScrollPane p3=new JScrollPane(list_3);
 		p3.setBorder(new TitledBorder(null, "Choix entreprise", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		p3.setBounds(1006, 352, 142, 231);
@@ -177,7 +180,9 @@ public class GUI2 extends JFrame {
 		
 		b0.setBounds(1006, 286, 278, 31);
 		contentPane.add(b0);
+		
 		b0.addActionListener(new ActionListener() {
+			@SuppressWarnings("deprecation")
 			public void actionPerformed(ActionEvent e) {
 				
 				String entreprise;
@@ -185,15 +190,20 @@ public class GUI2 extends JFrame {
 				entreprise = list_1.getSelectedValue().toString();
 				nb_action=list_2.getSelectedValue().toString();
 				double valeur3 = Double.parseDouble(nb_action);
+				@SuppressWarnings("static-access")
 				double val_action= singleton.get_valeuraction_entreprise(entreprise);
 				double prix_finale= valeur3*val_action;
+				singleton.modifier_pourcentage_entreprise (valeur3, entreprise);
+				
 				
 				if(prix_finale <= getPortefeuille()) {
 					setPortefeuille(getPortefeuille()- prix_finale);
 					String result=String.valueOf(val_action);
 					
 					listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
-					listModel3.addElement(result);
+					
+					listModel_vente_nbaction.addElement(nb_action);
+					listModel_vente_entreprise.addElement(entreprise);
 				}
 				else {
 					String expression1="Vous n'avez pas assez d'argent malheuresement";
@@ -205,6 +215,41 @@ public class GUI2 extends JFrame {
 		
 		
 		JButton b4 = new JButton("Valider vente");
+		b4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String entreprise;
+				String nb_action;
+				String nb_action1=listModel_vente_nbaction.firstElement() ;
+				double valeur_nb_action1=Double.parseDouble(nb_action1);
+				double nbaction_final=0;
+				entreprise = list_3.getSelectedValue().toString();
+				nb_action=list_4.getSelectedValue().toString();
+				double valeur3 = Double.parseDouble(nb_action);
+				
+				double val_action= singleton.get_valeuraction_entreprise(entreprise);
+				double prix_finale= valeur3*val_action;
+				setPortefeuille(getPortefeuille()+prix_finale);
+				listModel3.addElement("Entreprise :  " +list_3.getSelectedValue().toString()+ ", vous vendez : " +list_4.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+				for (int i=0; i<listModel_vente_entreprise.getSize();i++) {
+					
+					if(entreprise == listModel_vente_entreprise.elementAt(i)) {
+						nbaction_final= valeur_nb_action1-valeur3;
+						String result_nb_action = String.valueOf(nbaction_final);
+						listModel_vente_nbaction.remove(i);
+						listModel_vente_nbaction.add(i, result_nb_action);
+						double valeur4 = Double.parseDouble(result_nb_action);
+					if(valeur4 == 0) {
+						listModel_vente_nbaction.remove(i);
+						listModel_vente_entreprise.remove(i);
+					}
+					}
+				}
+				
+				
+				
+				
+			}
+		});
 		b4.setBounds(1006, 580, 278, 31);
 		contentPane.add(b4);
 		
@@ -221,16 +266,9 @@ public class GUI2 extends JFrame {
 		b6.setBounds(547, 320, 458, 31);
 		contentPane.add(b6);
 		
-		
-		JList list_6 = new JList(listModel2);
-		JScrollPane p5=new JScrollPane(list_6);
-		p5.setBorder(new TitledBorder(null, "Action Possédé par l'utilisateur", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		p5.setBounds(136, 372, 401, 239);
-		contentPane.add(p5);
-		
 		JList list_7 = new JList(listModel3);
 		JScrollPane p6=new JScrollPane(list_7);
-		p6.setBorder(new TitledBorder(null, "Historique Achat", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		p6.setBorder(new TitledBorder(null, "Historique Achat/Vente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		p6.setBounds(557, 372, 448, 239);
 		contentPane.add(p6);
 		
@@ -238,10 +276,26 @@ public class GUI2 extends JFrame {
 		separator.setBounds(538, 352, 20, 259);
 		contentPane.add(separator);
 		
-		JList list_5 = new JList(listModel);
-		JScrollPane p4=new JScrollPane(list_5);
-		p4.setBounds(1006, 58, 142, 231);
-		contentPane.add(p4);
+		
+		
+		txtActionPossd = new JTextField();
+		txtActionPossd.setHorizontalAlignment(SwingConstants.CENTER);
+		txtActionPossd.setText("Action possédé par l'utilisateur");
+		txtActionPossd.setBounds(136, 381, 427, 31);
+		contentPane.add(txtActionPossd);
+		txtActionPossd.setColumns(10);
+		
+		JList list_6 = new JList(listModel_vente_entreprise);
+		JScrollPane p7=new JScrollPane(list_6);
+		p7.setBorder(new TitledBorder(null, "Entreprise", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		p7.setBounds(144, 411, 207, 200);
+		contentPane.add(p7);
+		
+		JList list_8 = new JList(listModel_vente_nbaction);
+		JScrollPane p8=new JScrollPane(list_8);
+		p8.setBorder(new TitledBorder(null, "NbAction", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		p8.setBounds(350, 411, 207, 200);
+		contentPane.add(p8);
 		
 		
 	}
@@ -253,7 +307,4 @@ public class GUI2 extends JFrame {
 	public void setPortefeuille(double portefeuille) {
 		this.portefeuille = portefeuille;
 	}
-
-
-
 }
