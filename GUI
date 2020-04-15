@@ -1,54 +1,58 @@
 package gui;
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import javax.swing.JFrame;
 import javax.swing.ListSelectionModel;
-import javax.swing.JLabel;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Iterator;
+import java.util.Random;
 import java.awt.event.ActionEvent;
 import javax.swing.JList;
 import java.awt.Font;
 import javax.swing.border.TitledBorder;
 
+import donnee.Entreprise;
 import donnee.Evenement;
 import donnee.ListEntreprise;
+import donnee.Simulation;
 
 import java.awt.Color;
 import javax.swing.border.EtchedBorder;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
-import javax.swing.JTextArea;
-import javax.swing.ListModel;
 
 
-
+/**
+ * GUI est la classe représentant la première fenêtre de notre interface graphique
+ * 
+ * @author Julien Veysseyre
+ * @version 3.0
+ */
 @SuppressWarnings("serial")
+
 public class GUI extends JFrame {
-	private DefaultListModel<String> listModel = new DefaultListModel<>();
-	private DefaultListModel<String> listModel1 = new DefaultListModel<>();
+	private DefaultListModel<String> listModelEntreprise = new DefaultListModel<>();
+	private DefaultListModel<String> listModelFav = new DefaultListModel<>();
 	private DefaultListModel<String> listModel2 = new DefaultListModel<>();
+	private DefaultListModel<String> listModel3 = new DefaultListModel<>();
+	
 	
 
-	private JButton b = new JButton("Ajouter Favori");
-	private JButton b3= new JButton("Supprimer");
+	private JButton bAjoutFavori= new JButton("Ajouter Favori");
+	private JButton bSuppFavori= new JButton("Supprimer");
 	
+	static ListEntreprise singleton = ListEntreprise.getInstance();
 	
-	
-	
-	@SuppressWarnings("unused")
-	private String nomsEntreprise[] =
-	      { "Total", "Shell", "BP", "Esso", "EDF", 
-	        "Apple", "Logitech", "Hp inc.", "Dell", "Wester Digital Corporation",
-	        "Air France KLM", "American Airlines", "Delta Airlines","Lufthansa", "Air Canada",
-	        "Renault","Michelin","Ford Motor","Valeo","Peugeot PSA"};
-	
+
 	
 	/**
-	 * Launch the application.
+	 * Lancer notre interface.
 	 */
+	@SuppressWarnings("static-access")
 	public static void main(String[] args) {
-		ListEntreprise.testEntreprise();
+		singleton.testEntreprise();
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -63,7 +67,7 @@ public class GUI extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creer notre fenêtre.
 	 */
 	public GUI() {
 		getContentPane().setFont(new Font("Tahoma", Font.BOLD, 10));
@@ -74,8 +78,8 @@ public class GUI extends JFrame {
 		setBounds(100, 100, 1300, 650);
 		getContentPane().setLayout(null);
 		
-		JButton b0 = new JButton("Accéder à Achat/Vente");
-		b0.addActionListener(new ActionListener() {
+		JButton bAchatVente = new JButton("Accéder à Achat/Vente");
+		bAchatVente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				GUI2 a =new GUI2();
@@ -85,134 +89,227 @@ public class GUI extends JFrame {
 		
 	
 		
-		b0.setFont(new Font("Gadugi", Font.PLAIN, 21));
-		b0.setBounds(0, 0, 1284, 31);
-		getContentPane().add(b0);
+		bAchatVente.setFont(new Font("Gadugi", Font.PLAIN, 21));
+		bAchatVente.setBounds(0, 0, 1284, 31);
+		getContentPane().add(bAchatVente);
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JList list = new JList(listModel);
-		list.setSelectionMode(
+		JList listEntreprise= new JList(listModelEntreprise);
+		listEntreprise.setSelectionMode(
 		         ListSelectionModel.MULTIPLE_INTERVAL_SELECTION );
 		
-		listModel.addElement("Total");
-		listModel.addElement("Shell");
-		listModel.addElement("BP");
-		listModel.addElement("Esso");
-		listModel.addElement("EDF");
-		listModel.addElement("Apple");
-		listModel.addElement("Logitech");
-		listModel.addElement("Hp inc.");
-		listModel.addElement("Dell");
-		listModel.addElement("Wester Digital Corporation");
-		listModel.addElement("Air France KLM");
-		listModel.addElement("American Airlines");
-		listModel.addElement("Delta Airlines");
-		listModel.addElement("Lufthansa");
-		listModel.addElement("Air Canada");
-		listModel.addElement("Renault");
-		listModel.addElement("Michelin");
-		listModel.addElement("Ford Motor");
-		listModel.addElement("Valeo");
-		listModel.addElement("Peugeot PSA");
+		
+		/**
+		 *On ajoute nos entreprises a notre listModelEntreprise
+		 */
+		
+		listModelEntreprise.addElement("Total");
+		listModelEntreprise.addElement("Shell");
+		listModelEntreprise.addElement("BP");
+		listModelEntreprise.addElement("Esso");
+		listModelEntreprise.addElement("EDF");
+		listModelEntreprise.addElement("Apple");
+		listModelEntreprise.addElement("Logitech");
+		listModelEntreprise.addElement("Hp inc.");
+		listModelEntreprise.addElement("Dell");
+		listModelEntreprise.addElement("Wester Digital Corporation");
+		listModelEntreprise.addElement("Air France KLM");
+		listModelEntreprise.addElement("American Airlines");
+		listModelEntreprise.addElement("Delta Airlines");
+		listModelEntreprise.addElement("Lufthansa");
+		listModelEntreprise.addElement("Air Canada");
+		listModelEntreprise.addElement("Renault");
+		listModelEntreprise.addElement("Michelin");
+		listModelEntreprise.addElement("Ford Motor");
+		listModelEntreprise.addElement("Valeo");
+		listModelEntreprise.addElement("Peugeot PSA");
 		
 		
 		
 		
-		list.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		list.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Liste Entreprise", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
-		list.setToolTipText("Liste Entreprise");
-		list.setBounds(0, 42, 134, 418);
-		getContentPane().add(list);
+		listEntreprise.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		listEntreprise.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Liste Entreprise", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
+		listEntreprise.setToolTipText("Liste Entreprise");
+		listEntreprise.setBounds(0, 42, 134, 418);
+		getContentPane().add(listEntreprise);
 		
-		JLabel l1 = new JLabel("Graphique ( A venir)");
-		l1.setFont(new Font("Verdana", Font.PLAIN, 24));
-		l1.setBounds(145, 28, 1139, 339);
-		getContentPane().add(l1);
 		
-		JButton b1 = new JButton("Play");
-		b1.addActionListener(new ActionListener() {
+		/**
+		 * On crée notre bouton qui va lancer notre simulation.
+		 */
+		JButton bPlay = new JButton("Play");
+		
+		bPlay.addActionListener(new ActionListener() {
+			/**
+			 * @param e
+			 * Permet de lancer notre action
+			 * Nous permettra d'afficher notre graphique
+			 */
 			public void actionPerformed(ActionEvent e) {
 				
+				Random rand = new Random();
+				int randomElement = rand.nextInt(6);
+				if (randomElement == 0) {
+					listModel2.addElement("Evenement de cette semaine : "+ Evenement.evenementAleatoireGaz()+ ", secteur touché : GAZ - 30%");
+					singleton.modifier_capital_secteur(0.7,"gaz");
+					singleton.modifier_prix_action_secteur(0.7, "gaz");
+			
+				}
+				else if (randomElement == 1) {
+					listModel2.addElement("Evenement de cette semaine : "+ Evenement.evenementAleatoireTransport()+ ", secteur touché : TRANSPORT - 30%");
+					singleton.modifier_capital_secteur(0.7,"transport");
+					singleton.modifier_prix_action_secteur(0.7, "transport");
+					
+				}
+				else if(randomElement == 2) {
+					listModel2.addElement("Evenement de cette semaine : "+ Evenement.evenementAleatoireAutomobile()+ ", secteur touché : AUTOMOBILE +30%");
+					singleton.modifier_capital_secteur(1.3,"gaz");
+					singleton.modifier_prix_action_secteur(1.3, "gaz");
+				}
+				else if(randomElement == 3) {
+					listModel2.addElement("Evenement de cette semaine : "+Evenement.evenementAleatoireAutomobileNegatif()+ ", secteur touché : AUTOMOBILE - 30%");
+					singleton.modifier_capital_secteur(0.7,"automobile");
+					singleton.modifier_prix_action_secteur(0.7, "automobile");
+				}
+				else if(randomElement ==4) {
+					listModel2.addElement("Evenement de cette semaine : "+Evenement.evenementAleatoireInformatique()+ ", secteur touché : INFORMATIQUE +30%");
+					singleton.modifier_capital_secteur(1.3,"informatique");
+					singleton.modifier_prix_action_secteur(1.3, "informatique");
+				}
+				else if(randomElement ==5) {
+					System.out.println("Evenement de cette semaine : "+ Evenement.evenementAleatoireInformatiqueNegatif()+ ", secteur touché : INFORMATIQUE - 30%");
+					singleton.modifier_capital_secteur(0.7,"informatique");
+					singleton.modifier_prix_action_secteur(0.7, "informatique");
+				}
+				
+				Iterator<Entreprise> it = ListEntreprise.entreprises.iterator();
+				
+				while(it.hasNext()) {
+					Entreprise ent = it.next();
+					double pourcentage = Simulation.generer_pourcentage(0.80,1.2);
+					singleton.modifier_capital_entreprise(pourcentage, ent.getNom());
+					singleton.modifier_prix_action_entreprise(pourcentage, ent.getNom());
+					
+				}
+				for (int i=0; i<listModel3.getSize();i++) {
+					String entrepriseAfficher = listModel3.elementAt(i);
+					listModel2.addElement(entrepriseAfficher);
+					@SuppressWarnings("static-access")
+					double val_action= singleton.get_valeuraction_entreprise(entrepriseAfficher);
+					String nombre = String.valueOf(val_action);
+					listModel2.addElement(nombre);
+				}
 			}
-		});
-		b1.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		b1.setBounds(133, 369, 523, 18);
-		getContentPane().add(b1);
+			
+			});
+		bPlay.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		bPlay.setBounds(133, 369, 523, 18);
+		getContentPane().add(bPlay);
 		 
-		         
-
-
-	     
-		JButton b2 = new JButton("Pause");
-		b2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		b2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		b2.setBounds(677, 369, 607, 18);
-		getContentPane().add(b2);
-		
-		
-		
-		
-		 
+		/**
+		 * Crée un separateur pour une meilleure visibilité.
+		 */
 		
 		JSeparator sep = new JSeparator();
 		sep.setBounds(133, 389, 1151, 10);
 		getContentPane().add(sep);
 		
+		/**
+		 * Créer une Jlist qui contiendra nos entreprises favorites, on rajoute une meilleure visibilité avec la JscrollPane.
+		 */
+		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JList list_1 = new JList(listModel1);
-		JScrollPane p1=new JScrollPane(list_1);
-		p1.setBorder(new TitledBorder(null, "Favori", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		p1.setBounds(143, 398, 513, 143);
-		getContentPane().add(p1);
+		JList listFav = new JList(listModelFav);
+		JScrollPane pFav=new JScrollPane(listFav);
+		pFav.setBorder(new TitledBorder(null, "Favori", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		pFav.setBounds(143, 398, 513, 143);
+		getContentPane().add(pFav);
 		
 		
-	
-		 b3.addActionListener(
+		
+		 bSuppFavori.addActionListener(
 		         new ActionListener() {
 		            @SuppressWarnings({ })
+		            /**
+					 * @param e
+					 * Permet de lancer notre action
+					 * Nous permettra de supprimer de nos favori
+					 */
 					public void actionPerformed( ActionEvent e )
 		            {
 		            	
-		            	listModel1.removeElement(list_1.getSelectedValue());
+		            	listModelFav.removeElement(listFav.getSelectedValue());
 		            }
 		         }
 		         );
-		b.addActionListener(new ActionListener() {
+		 
+		 
+		bAjoutFavori.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				listModel1.addElement(list.getSelectedValue().toString());
+				/**
+				 * @param e
+				 * Permet de lancer notre action
+				 * Nous permettra de suppprimer de nos favoris.
+				 */
+				listModelFav.addElement(listFav.getSelectedValue().toString());
 				
 			}
 		});
 	
+		/**
+		 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+		 */
+		bSuppFavori.setBounds(199, 541, 165, 70);
+		getContentPane().add(bSuppFavori);
+		
+		/**
+		 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+		 */
+		bAjoutFavori.setBounds(0, 455, 134, 75);
+		getContentPane().add(bAjoutFavori);
+		
+		/**
+		 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+		 */
+		
+		JButton bchoisir1 = new JButton("Choisir");
+		bchoisir1.addActionListener(new ActionListener() {
+			/**
+			 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+			 */
+			public void actionPerformed(ActionEvent e) {
+			String entrepriseSelect=listEntreprise.getSelectedValue().toString();
+			listModel3.addElement(entrepriseSelect);
+			}
+		});
+				
+		/**
+		 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+		 */
+		bchoisir1.setBounds(0, 530, 134, 70);
+		getContentPane().add(bchoisir1);
 		
 		
-		b.setBounds(0, 455, 134, 75);
-		getContentPane().add(b);
-		
-		JButton b4 = new JButton("Choisir");
-		b4.setBounds(0, 530, 134, 70);
-		getContentPane().add(b4);
-		
-		
-		b3.setBounds(201, 541, 165, 70);
-		getContentPane().add(b3);
-		
-		JButton b5 = new JButton("Choisir");
-		b5.setBounds(364, 541, 177, 70);
-		getContentPane().add(b5);
+		/**
+		 * On ajoute notre bouton a notre Panel, on le redimensionne a l'aide de setBounds.
+		 */
+		JButton bchoisir2 = new JButton("Choisir");
+		bchoisir2.setBounds(364, 541, 177, 70);
+		getContentPane().add(bchoisir2);
 		
 		@SuppressWarnings({ "rawtypes", "unchecked" })
-		JList list_2 = new JList(listModel2);
+		/**
+		 * On crée notre List news avec une JscrollPane pour plus de visibilité, celle ci nous permettra d'afficher toute les news nécessaire à l'augmentation ou la baisse des actions d'une entreprise.
+		 */
+		JList listNews = new JList(listModel2);
+		JScrollPane pNews=new JScrollPane(listNews);
+		pNews.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "News", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
+		pNews.setBounds(677, 403, 607, 197);
+		getContentPane().add(pNews);
 		
-		list_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "News", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
-		list_2.setBounds(677, 403, 607, 197);
-		getContentPane().add(list_2);
 		
-
-
 	}
-}
+	
+		}
+
 
