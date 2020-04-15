@@ -2,7 +2,7 @@ package donnee;
 
 public class Personne {
 	private String nom;
-	private double soldeActuel=500;
+	private double soldeActuel=2000;
 	private int pourcentagedetenuparlapersonne;
 	
 	
