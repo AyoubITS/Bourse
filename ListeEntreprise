@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
-
+/**
+ * 
+ * @author Julien
+ *
+ */
 public class ListEntreprise implements InterfaceEntreprise {
 	
 	 private static final ListEntreprise instance = new ListEntreprise();
@@ -16,11 +20,16 @@ public class ListEntreprise implements InterfaceEntreprise {
 	 public static final ListEntreprise getInstance() {
 		 return instance;
 	 }
-	 
-	static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
+	 /**
+	  * crée deux arrayList : une entreprise et une d'achat d'action.
+	  */
+	public static ArrayList<Entreprise> entreprises=new ArrayList<Entreprise>();
 
 	private static ArrayList<AchatAction> AchatActionListe = new ArrayList<AchatAction>();
-	
+	/**
+	 * @param entreprise
+	 * méthode qui ajoute une entreprise
+	 */
 	public void ajouter(Entreprise entreprise) {
 		if(entreprises.contains(entreprise)) {
 			System.out.println("Cette entreprise est déjà ajouter");
@@ -29,7 +38,10 @@ public class ListEntreprise implements InterfaceEntreprise {
 			entreprises.add(entreprise);
 		}
 	}
-	
+	/**
+	 * @param nom1
+	 * @return une entreprise suivant son nom
+	 */
 	public Entreprise RechercherNom(String nom1) throws NoSuchElementException{
 		Entreprise resultat=null;
 		for (Entreprise entreprise : entreprises) {
@@ -45,19 +57,30 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}
 		
 		}
+	/**
+	 * supprime une entreprise
+	 */
 	public void remove(Entreprise entreprise) {
 		entreprises.remove(entreprise);
 	}
-
+	/**
+	 * @return nombre d'entreprise
+	 */
 	public int NombreEntreprise() {
 		return entreprises.size();
 	}
 
-	
+	/**
+	 * @param entreprise
+	 * méthode qui teste si l'entreprise est dans l'arrayList
+	 */
 	public boolean contains(Entreprise entreprise) {
 		return entreprises.contains(entreprise);
 	}
 	
+	/**
+	 * @return entreprise
+	 */
 	public String toString() {
 		String result = "";
 		for (Entreprise entreprise : entreprises) {
@@ -66,6 +89,10 @@ public class ListEntreprise implements InterfaceEntreprise {
 
 		return result;
 	}
+	
+	/**
+	 * @return permet de tester plusieurs méthodes
+	 */
 	public static void testEntreprise() {
 		
 		ListEntreprise singleton = ListEntreprise.getInstance();
@@ -76,7 +103,10 @@ public class ListEntreprise implements InterfaceEntreprise {
 		
 	}
 
-
+/**
+ * Cette méthode nous permet d'ajouter nos entreprises a notre arrayList
+ * @param entreprise
+ */
 	public static void testOperations(InterfaceEntreprise entreprise) {
 		Entreprise e2 = new Entreprise("Total", 394000000,"gaz",45,100);
 		Entreprise e3 = new Entreprise("Shell", 230000000,"gaz",11,100);
@@ -149,8 +179,12 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}
 
 }
-	//modifier capital par secteur selon evenement
 	
+	/**
+	 * @return le capital modifier d'un secteur
+	 * @param pourcentage
+	 * @param secteur
+	 */
 	public void modifier_capital_secteur (double pourcentage, String secteur) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
@@ -164,6 +198,29 @@ public class ListEntreprise implements InterfaceEntreprise {
 		System.out.println("\n");
 	}
 	
+	/**
+	 * @return le prix modifier de l'action suivant un secteur
+	 * @param pourcentage
+	 * @param secteur
+	 */
+	public void modifier_prix_action_secteur (double pourcentage, String secteur) {
+		Iterator<Entreprise> it = entreprises.iterator();
+		while(it.hasNext()) {
+			Entreprise ent= it.next();
+			if(ent.getSecteur().contentEquals(secteur)) {
+				ent.setCapital(ent.getValeuraction()*pourcentage);
+				System.out.println("Nouveau prix de l'action de " + ent.getNom() + " : " +ent.getValeuraction() );
+			}
+			
+		}
+		System.out.println("\n");
+	}
+	
+	/**
+	 * @return le capital modifier d'une entreprise
+	 * @param pourcentage
+	 * @param entreprise
+	 */
 	public void modifier_capital_entreprise (double pourcentage, String entreprise) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
@@ -174,6 +231,13 @@ public class ListEntreprise implements InterfaceEntreprise {
 			}
 		}
 	}
+	
+	
+	/**
+	 * @return le prix modifier de la valeur de l'action après un evenement ou achat d'un utilisateur
+	 * @param pourcentage
+	 * @param entreprise
+	 */
 	public void modifier_prix_action_entreprise (double pourcentage, String entreprise) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
@@ -184,19 +248,27 @@ public class ListEntreprise implements InterfaceEntreprise {
 			}
 		}
 	}
-	
-	public void modifier_pourcentage_entreprise (int pourcentage, String nom) {
+	/**
+	 * @return le pourcentage modifier de l'entreprise après que l'utilisateur ait acheter des actions. 
+	 * @param valeur3
+	 * @param nom
+	 */
+	public void modifier_pourcentage_entreprise (double valeur3, String nom) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
 			Entreprise ent= it.next();
 			if(ent.getNom().contentEquals(nom)) {
 			
-				ent.setPourcentagedetenuparen(ent.getPourcentagedetenuparen()-pourcentage);
+				ent.setPourcentagedetenuparen(ent.getPourcentagedetenuparen()-valeur3);
 				
 			}
 		}
 	}
 	
+	/**
+	 * @return le nombre d'achat d'action acheter
+	 * @param AchatAction
+	 */
 	public static void ajouterAchat(AchatAction AchatAction) {
 			Iterator<AchatAction> it = AchatActionListe.iterator();
 			while (it.hasNext()) {
@@ -208,8 +280,11 @@ public class ListEntreprise implements InterfaceEntreprise {
 			}
 			AchatActionListe.add(AchatAction);
 	}
-	
+	/**
+	 * Methode permettant de vendre des actions pour l'utilisateur
+	 */
 	public void Vente() {
+		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Voulez vous faire une vente cette semaine? (o/n)");
 		String rep = sc.nextLine();
@@ -255,7 +330,11 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}	
 		
 	}
-	
+	/**
+	 * Methode permettant d''acheter des actions
+	 * @return le nombre d'action achete par l'utilisateur
+	 * @param nb_action
+	 */
 	public void Achat( int nb_action) {
 		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);
@@ -297,11 +376,19 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}
 	}
 	
+	/**
+	 * teste la classe ListEntreprise
+	 * @param args
+	 */
 	public static void main(String[]args){
 		testEntreprise();
 		
 	
 	}
+	/**
+	 * @return la valeur d'une action d'une entreprise
+	 * @param String 
+	 */
 	public static  double get_valeuraction_entreprise(String entreprise) {
 		Iterator<Entreprise> it = entreprises.iterator();
 		double v1 = 0;
@@ -315,6 +402,11 @@ public class ListEntreprise implements InterfaceEntreprise {
 		}
 		return v1;
 	}
+	
+	/**
+	 * 
+	 * @return le nom d'une entreprise
+	 */
 	public String get_name_entreprise() {
 		Iterator<Entreprise> it = entreprises.iterator();
 		while(it.hasNext()) {
