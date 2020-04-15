@@ -1,7 +1,7 @@
 package gui;
 
 
-import java.awt.Color;
+import java.awt.Color; 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JList;
@@ -9,10 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
-
-
 import donnee.ListEntreprise;
-
 import java.awt.Font;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -24,29 +21,40 @@ import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 
-@SuppressWarnings("serial")
-public class GUI2 extends JFrame {
 
+
+@SuppressWarnings("serial")
+/**
+ * 
+ * @author Julien
+ * GUI2 est la classe nous permettant d'acheter et vendre des actions
+ *
+ */
+public class GUI2 extends JFrame {
+	
+	
 	private JPanel contentPane;
 	private JTextField txtAchat;
 	private JTextField txtVente;
 	static ListEntreprise singleton = ListEntreprise.getInstance();
-	private DefaultListModel<String> listModel = new DefaultListModel<>();
-	private DefaultListModel<String> listModel1 = new DefaultListModel<>();
+	private DefaultListModel<String> listModelEntreprise = new DefaultListModel<>();
+	private DefaultListModel<String> listModelVente = new DefaultListModel<>();
+	@SuppressWarnings("unused")
 	private DefaultListModel<String> listModel2 = new DefaultListModel<>();
-	private DefaultListModel<String> listModel3 = new DefaultListModel<>();
+	private DefaultListModel<String> listModel2000 = new DefaultListModel<>();
 	private DefaultListModel<String> listModel_vente_entreprise = new DefaultListModel<>();
 	private DefaultListModel<String> listModel_vente_nbaction = new DefaultListModel<>();
 	private JButton b1 = new JButton("Choisir ");
-	private JButton b0 = new JButton("Valider Achat");
+	private JButton bValiderAchat = new JButton("Valider Achat");
 	double portefeuille=2000;
 	private JTextField txtActionPossd;
 	
 
 	/**
-	 * Launch the application.
+	 * Lancer l'application.
 	 */
 	@SuppressWarnings("static-access")
+	
 	public static void main(String[] args) {
 		
 		singleton.testEntreprise();
@@ -64,7 +72,7 @@ public class GUI2 extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Creer la fenetre.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public GUI2() {
@@ -78,66 +86,88 @@ public class GUI2 extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Revenir à l'interface précédente");
-		btnNewButton.addActionListener(new ActionListener() {
+		/**
+		 * On créer un bouton pour revenir à l'interface précèdente
+		 */
+		JButton b1ereinterface = new JButton("Revenir à l'interface précédente");
+		 b1ereinterface.addActionListener(new ActionListener() {
+			 /**
+			  * @param e 
+			  * ce paramètre permet de lancer l'action pour revenir a l'interface précédente
+			  */
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
 				GUI a =new GUI();
 				a.setVisible(true);
 			}
 		});
-		btnNewButton.setFont(new Font("Gadugi", Font.PLAIN, 21));
-		btnNewButton.setBounds(0, 0, 1284, 31);
-		getContentPane().add(btnNewButton);
-		contentPane.add(btnNewButton);
+		 b1ereinterface.setFont(new Font("Gadugi", Font.PLAIN, 21));
+		 b1ereinterface.setBounds(0, 0, 1284, 31);
+		getContentPane().add( b1ereinterface);
+		contentPane.add( b1ereinterface);
 		
-		JList list = new JList(listModel);
-		listModel.addElement("Total");
-		listModel.addElement("Shell");
-		listModel.addElement("BP");
-		listModel.addElement("Esso");
-		listModel.addElement("Edf");
-		listModel.addElement("Apple");
-		listModel.addElement("Logitech");
-		listModel.addElement("Hp inc.");
-		listModel.addElement("Dell");
-		listModel.addElement("Wester Digital Corporation");
-		listModel.addElement("Air France KLM");
-		listModel.addElement("American Airlines");
-		listModel.addElement("Delta Airlines");
-		listModel.addElement("Lufthansa");
-		listModel.addElement("Air Canada");
-		listModel.addElement("Renault");
-		listModel.addElement("Michelin");
-		listModel.addElement("Ford Motor");
-		listModel.addElement("Valeo");
-		listModel.addElement("Peugeot PSA");
+		/**
+		 * On créer notre ListModel ou l'on remplis les entreprises.
+		 */
+		JList listEntreprise = new JList(listModelEntreprise);
+		listModelEntreprise.addElement("Total");
+		listModelEntreprise.addElement("Shell");
+		listModelEntreprise.addElement("BP");
+		listModelEntreprise.addElement("Esso");
+		listModelEntreprise.addElement("Edf");
+		listModelEntreprise.addElement("Apple");
+		listModelEntreprise.addElement("Logitech");
+		listModelEntreprise.addElement("Hp inc.");
+		listModelEntreprise.addElement("Dell");
+		listModelEntreprise.addElement("Wester Digital Corporation");
+		listModelEntreprise.addElement("Air France KLM");
+		listModelEntreprise.addElement("American Airlines");
+		listModelEntreprise.addElement("Delta Airlines");
+		listModelEntreprise.addElement("Lufthansa");
+		listModelEntreprise.addElement("Air Canada");
+		listModelEntreprise.addElement("Renault");
+		listModelEntreprise.addElement("Michelin");
+		listModelEntreprise.addElement("Ford Motor");
+		listModelEntreprise.addElement("Valeo");
+		listModelEntreprise.addElement("Peugeot PSA");
 		
-		listModel1.addElement("1");
-		listModel1.addElement("2");
-		listModel1.addElement("3");
-		listModel1.addElement("4");
-		listModel1.addElement("5");
-		listModel1.addElement("6");
-		listModel1.addElement("7");
-		listModel1.addElement("8");
-		listModel1.addElement("9");
-		listModel1.addElement("10");
+		/**
+		 * On créer notre ListModelVente avec le nombre d'actions que l'on peut vendre
+		 */
+		listModelVente.addElement("1");
+		listModelVente.addElement("2");
+		listModelVente.addElement("3");
+		listModelVente.addElement("4");
+		listModelVente.addElement("5");
+		listModelVente.addElement("6");
+		listModelVente.addElement("7");
+		listModelVente.addElement("8");
+		listModelVente.addElement("9");
+		listModelVente.addElement("10");
 		
-		listModel3.addElement("Vous commencez avec 2000 euros");
+		/**
+		 * On annonce a l'utilisateur qu'il commence avec 2000 euros.
+		 */
+		listModel2000.addElement("Vous commencez avec 2000 euros");
 		
-		list.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		list.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Liste Entreprise", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
-		list.setToolTipText("Liste Entreprise");
-		list.setBounds(0, 42, 134, 509);
-		list.add(b1);
-		getContentPane().add(list);
+		listEntreprise.setFont(new Font("Tahoma", Font.PLAIN, 11));
+		listEntreprise.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Liste Entreprise", TitledBorder.CENTER, TitledBorder.TOP, null, Color.DARK_GRAY));
+		listEntreprise.setToolTipText("Liste Entreprise");
+		listEntreprise.setBounds(0, 42, 134, 509);
+		listEntreprise.add(b1);
+		getContentPane().add(listEntreprise);
 		
+		/**
+		 * On créer notre bouton pour choisir notre entreprise a afficher
+		 */
 		JButton b1 = new JButton("Choisir ");
 		b1.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		b1.setBounds(0, 552, 134, 59);
 		getContentPane().add(b1);
 		
+		/**
+		 * On créer un JTextField pour présenter la partie Achat
+		 */
 		txtAchat = new JTextField();
 		txtAchat.setFont(new Font("Trebuchet MS", Font.PLAIN, 18));
 		txtAchat.setHorizontalAlignment(SwingConstants.CENTER);
@@ -146,17 +176,27 @@ public class GUI2 extends JFrame {
 		contentPane.add(txtAchat);
 		txtAchat.setColumns(10);
 		
-		JList list_1 = new JList(listModel);
-		JScrollPane p1=new JScrollPane(list_1);
+		/**
+		 * On créer une Jlist pour afficher le choix des entreprises pour acheter , on rajoute une JScrollPane pour une meilleure visibilité.
+		 */
+		JList list_choix_entreprise_achat = new JList(listModelEntreprise);
+		JScrollPane p1=new JScrollPane(list_choix_entreprise_achat);
 		p1.setBorder(new TitledBorder(null, "Choix entreprise", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		p1.setBounds(1006, 57, 142, 231);
 		contentPane.add(p1);
 		
-		JList list_2 = new JList(listModel1);
-		list_2.setBorder(new TitledBorder(null, "NbAction", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		list_2.setBounds(1150, 57, 133, 231);
-		contentPane.add(list_2);
+		/**
+		 * On créer une Jlist pour décider du nombre d'action que l'on achetera.
+		 */
+		JList list_achat_action = new JList(listModelVente);
+		list_achat_action.setBorder(new TitledBorder(null, "NbAction", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		list_achat_action.setBounds(1150, 57, 133, 231);
+		contentPane.add(list_achat_action);
 		
+		
+		/**
+		 * On créer une JTextField pour présenter la partie Vente.
+		 */
 		txtVente = new JTextField();
 		txtVente.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		txtVente.setHorizontalAlignment(SwingConstants.CENTER);
@@ -166,29 +206,39 @@ public class GUI2 extends JFrame {
 		contentPane.add(txtVente);
 		txtVente.setColumns(10);
 		
-		JList list_3 = new JList(listModel_vente_entreprise);
-		JScrollPane p3=new JScrollPane(list_3);
+		/**
+		 * On créer notre Jlist pour la vente de nos entreprise avec une JscollPane pour plus de visibilité
+		 */
+		JList list_vente_entreprise = new JList(listModel_vente_entreprise);
+		JScrollPane p3=new JScrollPane( list_vente_entreprise);
 		p3.setBorder(new TitledBorder(null, "Choix entreprise", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		p3.setBounds(1006, 352, 142, 231);
 		contentPane.add(p3);
 		
-		JList list_4 = new JList(listModel1);
-		list_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "NbAction", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		list_4.setBounds(1150, 352, 134, 231);
-		contentPane.add(list_4);
+		/**
+		 * On créer notre Jlist pour la vente du nb action
+		 */
+		JList list_vente_action = new JList(listModelVente);
+		list_vente_action.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "NbAction", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		list_vente_action.setBounds(1150, 352, 134, 231);
+		contentPane.add(list_vente_action);
 		
 		
-		b0.setBounds(1006, 286, 278, 31);
-		contentPane.add(b0);
+		bValiderAchat.setBounds(1006, 286, 278, 31);
+		contentPane.add(bValiderAchat);
 		
-		b0.addActionListener(new ActionListener() {
-			@SuppressWarnings("deprecation")
+		bValiderAchat.addActionListener(new ActionListener() {
+			/**
+			 * @param e 
+			 * permet de lancer notre action pour valider l'achat
+			 */
+			
 			public void actionPerformed(ActionEvent e) {
 				
 				String entreprise;
 				String nb_action;
-				entreprise = list_1.getSelectedValue().toString();
-				nb_action=list_2.getSelectedValue().toString();
+				entreprise = list_choix_entreprise_achat.getSelectedValue().toString();
+				nb_action= list_achat_action.getSelectedValue().toString();
 				double valeur3 = Double.parseDouble(nb_action);
 				@SuppressWarnings("static-access")
 				double val_action= singleton.get_valeuraction_entreprise(entreprise);
@@ -198,38 +248,44 @@ public class GUI2 extends JFrame {
 				
 				if(prix_finale <= getPortefeuille()) {
 					setPortefeuille(getPortefeuille()- prix_finale);
+					@SuppressWarnings("unused")
 					String result=String.valueOf(val_action);
 					
-					listModel3.addElement("Entreprise :  " +list_1.getSelectedValue().toString()+ ", vous avez : " +list_2.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+					listModel2000.addElement("Entreprise :  " +list_choix_entreprise_achat.getSelectedValue().toString()+ ", vous avez : " + list_achat_action.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
 					
 					listModel_vente_nbaction.addElement(nb_action);
 					listModel_vente_entreprise.addElement(entreprise);
 				}
 				else {
 					String expression1="Vous n'avez pas assez d'argent malheuresement";
-					listModel3.addElement(expression1);
+					listModel2000.addElement(expression1);
 				}
 				
 			}
 		});
 		
 		
-		JButton b4 = new JButton("Valider vente");
-		b4.addActionListener(new ActionListener() {
+		JButton bValider_vente = new JButton("Valider vente");
+		bValider_vente.addActionListener(new ActionListener() {
+			/**
+			 * @param e
+			 * permet de lanncer la vente de nos actions
+			 */
+			@SuppressWarnings("static-access")
 			public void actionPerformed(ActionEvent e) {
 				String entreprise;
 				String nb_action;
 				String nb_action1=listModel_vente_nbaction.firstElement() ;
 				double valeur_nb_action1=Double.parseDouble(nb_action1);
 				double nbaction_final=0;
-				entreprise = list_3.getSelectedValue().toString();
-				nb_action=list_4.getSelectedValue().toString();
+				entreprise =  list_vente_entreprise.getSelectedValue().toString();
+				nb_action=list_vente_action.getSelectedValue().toString();
 				double valeur3 = Double.parseDouble(nb_action);
 				
 				double val_action= singleton.get_valeuraction_entreprise(entreprise);
 				double prix_finale= valeur3*val_action;
 				setPortefeuille(getPortefeuille()+prix_finale);
-				listModel3.addElement("Entreprise :  " +list_3.getSelectedValue().toString()+ ", vous vendez : " +list_4.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
+				listModel2000.addElement("Entreprise :  " + list_vente_entreprise.getSelectedValue().toString()+ ", vous vendez : " +list_vente_action.getSelectedValue().toString()+ " action(s), il vous reste " + getPortefeuille()+ "euros");
 				for (int i=0; i<listModel_vente_entreprise.getSize();i++) {
 					
 					if(entreprise == listModel_vente_entreprise.elementAt(i)) {
@@ -250,34 +306,49 @@ public class GUI2 extends JFrame {
 				
 			}
 		});
-		b4.setBounds(1006, 580, 278, 31);
-		contentPane.add(b4);
+		bValider_vente.setBounds(1006, 580, 278, 31);
+		contentPane.add(bValider_vente);
 		
 		JPanel panel = new JPanel();
 		panel.setBorder(new TitledBorder(null, "Graphique (A venir)", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		panel.setBounds(136, 30, 869, 293);
 		contentPane.add(panel);
 		
-		JButton b5 = new JButton("Play");
-		b5.setBounds(136, 320, 412, 31);
-		contentPane.add(b5);
+		/**
+		 * Créer notre bouton qui va lancer la simulation
+		 */
+		JButton bPlay = new JButton("Play");
+		bPlay.setBounds(136, 320, 412, 31);
+		contentPane.add(bPlay);
 		
-		JButton b6 = new JButton("Pause");
-		b6.setBounds(547, 320, 458, 31);
-		contentPane.add(b6);
+		/**
+		 * Créer notre bouton pause.
+		 */
+		JButton bPause = new JButton("Pause");
+		bPause.setBounds(547, 320, 458, 31);
+		contentPane.add(bPause);
 		
-		JList list_7 = new JList(listModel3);
-		JScrollPane p6=new JScrollPane(list_7);
+		/**
+		 * Créer notre JList ou on affichera l'historique de nos achats avec unne JScrollPane pour une meilleure visibilité.
+		 */
+		JList list_historique_achat = new JList(listModel2000);
+		JScrollPane p6=new JScrollPane(list_historique_achat);
 		p6.setBorder(new TitledBorder(null, "Historique Achat/Vente", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		p6.setBounds(557, 372, 448, 239);
 		contentPane.add(p6);
 		
+		
+		/**
+		 * Créer un separateur pour une meilleure visibilité.
+		 */
 		JSeparator separator = new JSeparator();
 		separator.setBounds(538, 352, 20, 259);
 		contentPane.add(separator);
 		
 		
-		
+		/**
+		 * Créer un JTextField pour présenter la partie action possédé par l'utilisateur
+		 */
 		txtActionPossd = new JTextField();
 		txtActionPossd.setHorizontalAlignment(SwingConstants.CENTER);
 		txtActionPossd.setText("Action possédé par l'utilisateur");
@@ -285,6 +356,9 @@ public class GUI2 extends JFrame {
 		contentPane.add(txtActionPossd);
 		txtActionPossd.setColumns(10);
 		
+		/**
+		 * On créer deux JList avec deux JScrollPane ,une  avec le nom des entreprises ou l'on aura acheter, et l'autre avec le nombre d'actions possédés.
+		 */
 		JList list_6 = new JList(listModel_vente_entreprise);
 		JScrollPane p7=new JScrollPane(list_6);
 		p7.setBorder(new TitledBorder(null, "Entreprise", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -299,11 +373,19 @@ public class GUI2 extends JFrame {
 		
 		
 	}
-
+	
+	/**
+	 * 
+	 * @return valeur portefeuille
+	 */
 	public double getPortefeuille() {
 		return portefeuille;
 	}
-
+	
+	 /**
+	  * Change la valeur du portefeuille
+	  * @param portefeuille
+	  */
 	public void setPortefeuille(double portefeuille) {
 		this.portefeuille = portefeuille;
 	}
