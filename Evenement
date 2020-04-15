@@ -1,20 +1,38 @@
 package donnee;
-
 import java.util.Arrays; 
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 
+ * @author Julien
+ *Evenement est la classe qui modifiera la valeur du prix des actions en fonction d'évènement.
+ *Dans notre interface elle s'affichera sous forme de news.
+ */
 public class Evenement {
+	/**
+	 * Créer des Evenements avec modification de la valeur d'action.
+	 * Créer le singleton.
+	 */
 	private String evenement ;
 	ListEntreprise singleton = ListEntreprise.getInstance();
 	public String getEvenement() {
+		/**
+		 * retourne l'evenement.
+		 */
 		return evenement;
 	}
 
 	public void setEvenement(String evenement) {
+		/**
+		 * Modifie l'evenement.
+		 */
 		this.evenement = evenement;
 	}
 	
+	/**
+	 * Modifie le prix de l'action pour le secteur Gaz avec l'aide d'un evenement.
+	 */
 	public static String evenementAleatoireGaz() {
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("evenement géopolitique","crise petrolière","pic pollution");
@@ -22,6 +40,9 @@ public class Evenement {
 	return randomElement;
 	}
 	
+	/**
+	 * Modifie le prix de l'action pour le secteur Transport avec l'aide d'un evenement.
+	 */
 	public static String evenementAleatoireTransport() {
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("coronavirus","catastrophe naturelle","guerre");
@@ -29,6 +50,9 @@ public class Evenement {
 	return randomElement;
 	}
 	
+	/**
+	 * Modifie le prix de l'action pour le secteur Automobile avec l'aide d'un evenement.
+	 */
 	public static String evenementAleatoireAutomobile() {	
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("sortie nouveau véhicule","salon de l'automobile");
@@ -36,6 +60,9 @@ public class Evenement {
 	return randomElement;
 	}
 	
+	/**
+	 * Modifie le prix de l'action négativement pour le secteur Automobile avec l'aide d'un evenement.
+	 */
 	public static String evenementAleatoireAutomobileNegatif() {	
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("défaut moteur","Augmentation pollution mondiale");
@@ -43,7 +70,9 @@ public class Evenement {
 	return randomElement;
 	}
 	
-	
+	/**
+	 * Modifie le prix de l'action pour le secteur Informatique avec l'aide d'un evenement.
+	 */
 	public static String evenementAleatoireInformatique() {
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("salon jeu vidéo","salon presentation téléphone");
@@ -51,12 +80,20 @@ public class Evenement {
 	return randomElement;
 	}
 	
+	/**
+	 * Modifie le prix de l'action négativement pour le secteur Informatique avec l'aide d'un evenement.
+	 */
+	
 	public static String evenementAleatoireInformatiqueNegatif() {
 	Random rand = new Random();
 	List <String> liste = Arrays.asList("attaque informatique mondiale","Défaut processeur");
 	String randomElement = liste.get(rand.nextInt(liste.size()));
 	return randomElement;
 	}
+	
+	/**
+	 * Méthode qui va génerer aléatoirement un evenement ou plusieurs pour tel ou tel secteurs.
+	 */
 	
 	public static void EvenementSecteurAleatoire() {
 		ListEntreprise singleton = ListEntreprise.getInstance();
@@ -90,6 +127,9 @@ public class Evenement {
 		}
 	}
 	
+	/**
+	 * Méthode qui modifie les événements semaine par semaine.
+	 */
 	public static void semaine() {
 		for (int i =1; i < 6; i++) {
 			ListEntreprise singleton = ListEntreprise.getInstance();
@@ -105,6 +145,11 @@ public class Evenement {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Teste la classe evenement.
+	 */
 	public static void main(String[]args){
 		ListEntreprise.testEntreprise();
 		semaine();
