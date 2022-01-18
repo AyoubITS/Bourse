@@ -8,3 +8,5 @@ la semaine ainsi qu’effectuer des achats et ventes à l’aide de son portefeu
 
 **En bref le projet est comme un logiciel de trading pour utilisateur "débutant" (car sans
 fonctionnalités avancées).**
+
+*Projet réalisé en L2*
