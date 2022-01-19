@@ -1,0 +1,40 @@
+\newpage
+\section{Spécification du projet}
+\label{sec:specification}
+
+\paragraph{} Nous avons présenté l'objectif du projet dans la section \ref{sec:introduction}. Dans cette section, nous présentons la spécification de notre logiciel réalisé. Ceci correspond principalement au document de spécification du projet (cahier des charges).
+
+\subsection{Notions de base et contraintes du projet}
+\label{sec:spec1}
+
+\subsubsection{Fonctionnement général du logiciel}
+\paragraph{} Au lancement de l'interface on a d'abord la première page 'd'information' avec le graphique, les news et le bouton play qui fait avancer d'une semaine le graphique. 
+\paragraph{}En haut on a un bouton pour accéder à la deuxième interface pour effectuer des achats et des ventes d'actions ainsi que voir son historique d'achat.
+
+\subsubsection{Notions et termonologies de base}
+
+\paragraph{} Voici quelques definition a propos de la bourse :
+\paragraph{Capital:}C'est le montant de tous les apports de bien et d'argent dont les associés et actionnaires en transfèrent le privilège à la société en contrepartie de droit.
+\paragraph{Action:} On peut définir une action pour la part qu'elle représente dans une entreprise. En d'autres termes plus vous détenez d'actions, plus l'intérêt que vous avez dans une entreprise est grand. Lorsque vous en possédez, cela fait de vous un actionnaire de l'entreprise.
+\paragraph{Secteur:} Un secteur est un regroupement d'entreprises sur un 'thème' comme le gaz,  l'informatique, l'automobile et les transports. Dans notre projet il y a 5 entreprises par secteur et chaque semaines des évènements aléatoires influent le capital d'un secteur en particulier (défaut moteur, crise pétrolière etc...).
+\subsubsection{Contraintes et limitations connues}
+
+\paragraph{} Au niveau de la simulation qui modifie le capital de chaque entreprises aléatoirement, on a pas pu faire une intelligence très avancée car les calculs de prédictions en économie sont assez compliqués donc difficile à utiliser en java sauf peut-être avec une ressource externe comme un API.
+\paragraph{}On n’a pas pu faire les fonctionnalités avancées comme les contrats, swap, forex car on a préféré passer à la conception du graphique qui est l'affichage le plus important de notre interface. C'est pour cela que notre logiciel est plutôt destiné à des utilisateurs débutants plutôt qu'a des traders professionnels.
+
+\subsection{Fonctionnalités attendues du projet}
+\label{sec:spec2}
+
+\paragraph{Fonctionnalités} Fonctionnalités du programme:
+\begin{itemize}
+\item Choisir une entreprise sur une liste déroulante.
+\item Afficher le graphique du prix d'action d'une entreprise.
+\item Mettre en favori une entreprise.
+\item Voir l'historique d'achat/vente et les news.
+\item Bouton play qui a chaque clic avance d'une semaine le graphique (simulation/evenement aléatoire effectués a chaque semaine) .
+\item Acceder avec un bouton aux deux fenetres de notre interface.
+\item Effectuer des achats d'actions sur une entreprise au choix.
+\item Vendre ses actions possédées.
+\item Voir son portefeuille et ses actions possédées .
+\end{itemize}
+
